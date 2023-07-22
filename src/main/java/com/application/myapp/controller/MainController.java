@@ -58,6 +58,18 @@ public class MainController {
         }
     }
 
+    @GetMapping(value = "/get/{offset}/{pagesize}/{field}")
+    public ResponseEntity<Page<SubmitFormEntity>> getFormByFieldAndPagination(@PathVariable int offset,@PathVariable int pagesize,@PathVariable String field) {
+        Page<SubmitFormEntity> data = formRepositoryService.getDataByPaginationAndSorting(offset, pagesize, field);
+        if (data.isEmpty()) {
+            // If the list is empty, return 204 No Content status
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            // If data is found, return the list with 200 OK status
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        }
+    }
+
 
     @PostMapping(value = "/post")
     public ResponseEntity<SubmitFormEntity> postForm(@RequestBody SubmitFormEntity submitForm) {

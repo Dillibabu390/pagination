@@ -35,4 +35,10 @@ public class FormRepositoryService {
          return  formRepository.findAll(PageRequest.of(offset,pagesize));
      }
 
+     public Page<SubmitFormEntity> getDataByPaginationAndSorting(int offset, int pagesize,String field){
+         return formRepository.findAll(PageRequest.of(offset,pagesize).withSort(Sort.by(field)));
+     }
+
+
+
 }
