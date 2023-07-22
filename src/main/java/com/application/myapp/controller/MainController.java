@@ -1,4 +1,5 @@
 package com.application.myapp.controller;
+import com.application.myapp.dto.FormRequest;
 import com.application.myapp.entity.SubmitFormEntity;
 import com.application.myapp.service.FormRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,8 @@ public class MainController {
 
 
     @PostMapping(value = "/post")
-    public ResponseEntity<SubmitFormEntity> postForm(@RequestBody SubmitFormEntity submitForm) {
+   // public ResponseEntity<SubmitFormEntity> postForm(@RequestBody SubmitFormEntity submitForm) {
+      public ResponseEntity<SubmitFormEntity> postForm(@RequestBody FormRequest submitForm) {
         try {
             if (submitForm == null) {
                 // If the request body is null, return a bad request status code (400).
@@ -80,11 +82,11 @@ public class MainController {
             }
             // Save the entity to the repository.
 
-           SubmitFormEntity data =  formRepositoryService.saveData(submitForm);
 
             // Return the saved entity with a success status code (200 OK).
-            return ResponseEntity.ok(data);
+           ResponseEntity<SubmitFormEntity> data =  formRepositoryService.saveData(submitForm);
 
+            return data;
 
         } catch (Exception e) {
             // If an exception occurs during processing, return an internal server error status code (500).

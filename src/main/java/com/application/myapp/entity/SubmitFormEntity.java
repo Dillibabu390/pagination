@@ -10,14 +10,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "form")
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "build")
 @ToString
 @Data
 public class SubmitFormEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue
     private Long id;
 
     private String name;

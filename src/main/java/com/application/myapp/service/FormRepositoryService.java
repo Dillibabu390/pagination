@@ -1,12 +1,13 @@
 package com.application.myapp.service;
 
+import com.application.myapp.dto.FormRequest;
 import com.application.myapp.entity.SubmitFormEntity;
 import com.application.myapp.repository.FormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +18,10 @@ public class FormRepositoryService {
     @Autowired
     FormRepository formRepository;
 
-     public SubmitFormEntity saveData(SubmitFormEntity submitForm){
-           formRepository.save(submitForm);
-           return submitForm;
+     public ResponseEntity<SubmitFormEntity> saveData(FormRequest submitForm){
+         SubmitFormEntity entity = SubmitFormEntity.build(0L,submitForm.getName(),submitForm.getAddress(),submitForm.getPhoneNumber(),submitForm.getAge());
+           formRepository.save(entity);
+         return ResponseEntity.ok(entity);
      }
 
      public List<SubmitFormEntity> getData(){
